@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MediatrExercise.Application/MediatrExercise.Application.csproj" />
+  <Project Path="MediatrExercise.Domain/MediatrExercise.Domain.csproj" />
+  <Project Path="MediatrExercise.Presentation/MediatrExercise.Presentation.csproj" />
+</Solution>
