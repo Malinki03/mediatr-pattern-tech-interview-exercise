@@ -1,0 +1,16 @@
+using MediatR;
+using MediatrExercise.Domain.Entities;
+using MediatrExercise.Domain.Repositories;
+
+namespace MediatrExercise.Application.Carts.Queries;
+
+public record GetCartByIdQuery(long id) : IRequest<Cart>;
+
+public class GetCartByIdHandler(ICartRepository cartRepository) : IRequestHandler<GetCartByIdQuery, Cart>
+{
+    public async Task<Cart> Handle(GetCartByIdQuery request, CancellationToken cancellationToken)
+    {
+        Cart retrieved = await cartRepository.GetById(request.id);
+        return retrieved;
+    }
+}
