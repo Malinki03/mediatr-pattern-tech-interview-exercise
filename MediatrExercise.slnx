@@ -1,5 +1,8 @@
 <Solution>
-  <Project Path="MediatrExercise.Application/MediatrExercise.Application.csproj" />
-  <Project Path="MediatrExercise.Domain/MediatrExercise.Domain.csproj" />
-  <Project Path="MediatrExercise.Presentation/MediatrExercise.Presentation.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/MediatrExercise.Application/MediatrExercise.Application.csproj" />
+    <Project Path="src/MediatrExercise.Domain/MediatrExercise.Domain.csproj" />
+    <Project Path="src/MediatrExercise.Infrastructure/MediatrExercise.Infrastructure.csproj" />
+    <Project Path="src/MediatrExercise.Presentation/MediatrExercise.Presentation.csproj" />
+  </Folder>
 </Solution>
