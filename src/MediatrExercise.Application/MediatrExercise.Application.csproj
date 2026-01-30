@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediatrExercise.Domain\MediatrExercise.Domain.csproj" />
+    <ProjectReference Include="..\MediatrExercise.Infrastructure\MediatrExercise.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
