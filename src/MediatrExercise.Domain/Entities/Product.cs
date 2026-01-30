@@ -1,10 +1,13 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace MediatrExercise.Domain.Entities;
 
 public class Product : Entity
 {
-    public required string Name;
-    public required decimal Price;
+    public required string Name { get; set; }
+    public required decimal Price { get; set; }
 
+    [SetsRequiredMembers]
     public Product(long id, string name, decimal price) : base(id)
     {
         Name = name;

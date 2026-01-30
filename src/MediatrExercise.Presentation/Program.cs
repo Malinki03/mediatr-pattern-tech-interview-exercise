@@ -1,5 +1,5 @@
 using MediatrExercise.Application.ServiceContainer;
-using MediatrExercise.Presentation.Endpoints;
+using MediatrExercise.Presentation.Products.Endpoints;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
