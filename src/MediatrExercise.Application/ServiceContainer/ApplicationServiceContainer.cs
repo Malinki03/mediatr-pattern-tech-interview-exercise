@@ -1,4 +1,3 @@
-using MediatrExercise.Application.Products.Queries;
 using MediatrExercise.Domain.Repositories;
 using MediatrExercise.Infrastructure.Carts;
 using MediatrExercise.Infrastructure.Products;
