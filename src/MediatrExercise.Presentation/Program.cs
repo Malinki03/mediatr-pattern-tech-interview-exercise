@@ -1,3 +1,4 @@
+using MediatrExercise.Application.ServiceContainer;
 using MediatrExercise.Presentation.Endpoints;
 using Scalar.AspNetCore;
 
@@ -7,6 +8,8 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
 });
 builder.Services.AddOpenApi();
+builder.Services.AddApplicationServices();
+
 var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
