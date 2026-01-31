@@ -4,6 +4,7 @@ using MediatrExercise.Presentation.Products.Endpoints;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddLogging();
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
