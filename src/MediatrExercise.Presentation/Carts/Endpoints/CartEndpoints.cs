@@ -1,6 +1,6 @@
 namespace MediatrExercise.Presentation.Carts.Endpoints;
 
-public class CartEndpoints
+internal class CartEndpoints
 {
     
 }
