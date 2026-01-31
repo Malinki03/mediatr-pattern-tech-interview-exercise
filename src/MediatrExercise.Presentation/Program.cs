@@ -1,4 +1,5 @@
 using MediatrExercise.Application.ServiceContainer;
+using MediatrExercise.Presentation.Middlewares;
 using MediatrExercise.Presentation.Products.Endpoints;
 using Scalar.AspNetCore;
 
@@ -9,10 +10,13 @@ builder.Services.AddMediatR(cfg =>
 });
 builder.Services.AddOpenApi();
 builder.Services.AddApplicationServices();
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionMiddleware>();
 
 var app = builder.Build();
 app.MapOpenApi();
 app.MapScalarApiReference();
 ProductEndpoints.Map(app);
+app.UseExceptionHandler();
 
 app.Run();
