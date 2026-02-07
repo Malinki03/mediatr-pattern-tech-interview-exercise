@@ -12,7 +12,7 @@ public class AddProductCommandHandler(IProductRepository productRepository, ILog
     public async Task<Product> Handle(AddProductCommand request, CancellationToken cancellationToken)
     {
         Product inserted = await productRepository.Add(request.product);
-        logger.LogDebug("Created new product with id {id}", inserted.Id);
+        logger.LogInformation("Created new product with id {id}", inserted.Id);
         return inserted;
     }
 }
