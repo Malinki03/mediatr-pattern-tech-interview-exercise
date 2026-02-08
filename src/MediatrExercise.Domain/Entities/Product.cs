@@ -6,6 +6,8 @@ public class Product : Entity
 {
     public required string Name { get; set; }
     public required decimal Price { get; set; }
+    public long? CartId { get; set; }
+    public virtual Cart? Cart { get; set; }
 
     [SetsRequiredMembers]
     public Product(long id, string name, decimal price) : base(id)
