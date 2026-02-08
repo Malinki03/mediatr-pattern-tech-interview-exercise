@@ -6,11 +6,11 @@ namespace MediatrExercise.Application.Products.Queries;
 
 public record GetProductByIdQuery(long id) : IRequest<Product>;
 
-public class GetProductByIdHandler(IProductRepository productRepository) : IRequestHandler<GetProductByIdQuery, Product>
+public class GetProductByIdHandler(IGenericRepository<Product> productRepository) : IRequestHandler<GetProductByIdQuery, Product>
 {
     public async Task<Product> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
     {
-        Product retrieved = await productRepository.GetById(request.id);
+        Product retrieved = await productRepository.GetByIdAsync(request.id);
         return retrieved;
     }
 }

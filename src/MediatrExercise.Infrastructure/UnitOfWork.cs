@@ -1,31 +1,53 @@
+using MediatrExercise.Domain.Entities;
 using MediatrExercise.Domain.Repositories;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using Microsoft.Extensions.Logging;
 
 namespace MediatrExercise.Infrastructure;
 
-public class UnitOfWork(IProductRepository productRepository, ICartRepository cartRepository) : IUnitOfWork
+public class UnitOfWork(DataContext dataContext,
+    IGenericRepository<Product> productRepository,
+    IGenericRepository<Cart> cartRepository,
+    ILogger<UnitOfWork> logger) : IUnitOfWork
 {
-    public ICartRepository cartRepository { get; init; } = cartRepository;
-    public IProductRepository productRepository { get; init; } = productRepository;
+    public IGenericRepository<Cart> cartRepository { get; init; } = cartRepository;
+    public IGenericRepository<Product> productRepository { get; init; } = productRepository;
 
     public async Task ExecuteInUnitOfWorkAsync(Func<Task> action, CancellationToken cancellationToken = default)
     {
-        await action();
-        SaveChangesAsync(cancellationToken);
+        try
+        {
+            await action();
+            await SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Exception while running unit of work, no changes have been made");
+            throw;
+        }
     }
     public async Task<T> ExecuteInUnitOfWorkAsync<T>(Func<Task<T>> action, CancellationToken cancellationToken = default)
     {
-        var result = await action();
-        SaveChangesAsync(cancellationToken);
-        return result;
+        try
+        {
+            var result = await action();
+            await SaveChangesAsync(cancellationToken);
+            return result;
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, "Exception while running unit of work, no changes have been made");
+            throw;
+        }
     }
     
-    public Task SaveChangesAsync(CancellationToken cancellationToken = default)
+    public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await dataContext.SaveChangesAsync(cancellationToken);
     }
 
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        // TODO release managed resources here
+        GC.SuppressFinalize(this);
     }
 }

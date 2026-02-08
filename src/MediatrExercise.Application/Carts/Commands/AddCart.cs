@@ -6,11 +6,15 @@ namespace MediatrExercise.Application.Carts.Commands;
 
 public record AddCartCommand(Cart cart) : IRequest<Cart>;
 
-public class AddCartCommandHandler(ICartRepository cartRepository) : IRequestHandler<AddCartCommand, Cart>
+public class AddCartCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<AddCartCommand, Cart>
 {
     public async Task<Cart> Handle(AddCartCommand request, CancellationToken cancellationToken)
     {
-        Cart inserted = await cartRepository.Add(request.cart);
-        return inserted;
+        Cart insertedCart = await unitOfWork.ExecuteInUnitOfWorkAsync(async () =>
+        {
+            Cart inserted = await unitOfWork.cartRepository.AddAsync(request.cart);
+            return inserted;
+        }, cancellationToken);
+        return insertedCart;
     }
 }

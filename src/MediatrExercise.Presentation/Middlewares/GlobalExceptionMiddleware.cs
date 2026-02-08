@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MediatrExercise.Presentation.Middlewares;
 
-internal class GlobalExceptionMiddleware : IExceptionHandler
+internal class GlobalExceptionMiddleware(ILogger<GlobalExceptionMiddleware> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
+        logger.LogError(exception, "Generic exception occurred");
         var errorResponse = new ProblemDetails
         {
             Title = "Something went wrong",
